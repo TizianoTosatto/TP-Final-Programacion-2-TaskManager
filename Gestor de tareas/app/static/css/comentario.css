@@ -1,0 +1,122 @@
+body {
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right,rgb(33, 12, 93),rgb(30, 115, 212));
+    margin: 0;
+}
+#contenedor-padre {
+    display:flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+}
+#header {
+    width: 40%;
+    padding-right: 70px;
+}
+
+#header h1 {
+    font-size: 85px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+.images img{
+    margin-top: 70px;
+    padding: 50px;
+    width: 300px;
+    height: 300px;
+    border-radius: 200px;
+}
+.contenedor {
+    background-color: rgba(255, 255, 255, 0.979);
+    width: 90%;
+    height: 100%;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    padding-right: 50px;
+    border-radius: 10px;
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+#ComentarioForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#ComentarioForm div {
+    margin-bottom: 15px;
+}
+
+#ComentarioForm button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color:  rgb(30, 115, 212);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#ComentarioForm button:hover {
+    background-color:rgb(60, 130, 221);
+}
+#ComentarioForm .return {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color:rgb(33, 12, 93);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#ComentarioForm .return:hover {
+    background-color:rgb(56, 56, 155);
+}
+
+.frase{
+    align-content: center;
+    font-size: 18px;
+    color: #d0d4da;
+    text-align: center;
+    position: absolute;
+    padding-left: 10px;
+}
+
+.error-text {
+    padding-top: 15px;
+    color: red;
+    font-size: 12px;
+}
+.volver{
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color:  rgb(30, 115, 212);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    height: 20px;
+    
+}
+.volver:hover{
+    background-color:rgb(60, 130, 221);
+}
+.volver p {
+   margin: auto;
+    text-align: center;
+
+}
+.volver p a {
+    text-decoration: none;
+}
