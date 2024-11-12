@@ -45,8 +45,8 @@
             const comentarioError = document.getElementById('comentarioError');
             comentarioError.textContent = ''; // Limpiar mensajes anteriores
 
-            if (comentario.length === 0) {
-            comentarioError.textContent = 'El mensaje debe tener al menos 10 caracteres.';
+            if (comentario.length === 0 ) {
+            comentarioError.textContent = 'El mensaje está vacío.';
             return;
             }
             // Si todo es válido, puedes enviar el formulario

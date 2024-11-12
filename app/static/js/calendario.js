@@ -88,7 +88,8 @@ function openEventModal(year, month, day) {
     if (events[dateString]) {
         events[dateString].forEach((event, index) => {
             const eventItem = document.createElement('li');
-            eventItem.textContent = event;
+            eventItem.textContent = event.descripcion;
+
             eventItem.style.background='#e7e7e7';
             eventItem.style.padding='5px';
             eventItem.style.borderRadius='5px';
@@ -147,9 +148,23 @@ function deleteEvent(dateString, index) {
 function editEvent(dateString, index) {
     const newEventName = prompt("Editar evento:", events[dateString][index]);
     if (newEventName) {
-        events[dateString][index] = newEventName;
-        generateCalendar();
-        openEventModal(new Date(dateString).getFullYear(), new Date(dateString).getMonth(), new Date(dateString).getDate());
+        // events[dateString][index] = newEventName;
+        const eventId = events[dateString][index].id;
+        fetch(`/editar_evento/${eventId}`, {
+            method: 'PUT', // o 'PATCH' dependiendo de tu elección
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ descripcion: newEventName })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Actualiza el evento localmente
+            events[dateString][index].descripcion = newEventName;
+            generateCalendar();  // Regenerar el calendario para reflejar el cambio
+            openEventModal(new Date(dateString).getFullYear(), new Date(dateString).getMonth(), new Date(dateString).getDate());
+        })
+        .catch(error => console.error('Error al editar el evento:', error));
     }
 }
 
@@ -159,8 +174,8 @@ function loadEvents() {
     fetch('/obtener_eventos', {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            'Content-Type': 'application/json'
+        
         }
     })
     .then(response => response.json())
@@ -169,7 +184,7 @@ function loadEvents() {
             if (!events[evento.fecha]) {
                 events[evento.fecha] = [];
             }
-            events[evento.fecha].push(evento.descripcion);
+            events[evento.fecha].push({ id: evento.id, descripcion: evento.descripcion });
         });
         generateCalendar();
     })
@@ -184,7 +199,7 @@ function addEvent(dateString) {
         if (!events[dateString]) {
             events[dateString] = [];
         }
-        events[dateString].push(eventName);
+        //  events[dateString].push(eventName);
         
         // Guarda el evento en la base de datos
         fetch('/agregar_evento', {
@@ -196,20 +211,22 @@ function addEvent(dateString) {
         })
         .then(response => response.json())
         .then(data => {
-            generateCalendar(); // Regenerar calendario
+            events[dateString].push({ id: data.id, descripcion: data.descripcion });
+            generateCalendar(); // Regenerar el calendario para reflejar el nuevo evento
             eventModal.classList.add('hidden');
         })
         .catch(error => console.error('Error al agregar evento:', error));
     }
 }
 function deleteEvent(dateString, index) {
+    const eventId = events[dateString][index].id;
     events[dateString].splice(index, 1);
     if (events[dateString].length === 0) {
         delete events[dateString]; // Eliminar el día si no tiene eventos
     }
 
     // Eliminar el evento de la base de datos
-    fetch(`/eliminar_evento/${events[dateString].id}`, {
+    fetch(`/eliminar_evento/${eventId}`, {
         method: 'DELETE'
     })
     .then(response => response.json())
@@ -219,7 +236,7 @@ function deleteEvent(dateString, index) {
     })
     .catch(error => console.error('Error al eliminar evento:', error));
 }
-
+//------------------------------------------------------------------------------------------------------------------
 // Funciones para cambiar de mes
 prevMonthButton.addEventListener('click', () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
