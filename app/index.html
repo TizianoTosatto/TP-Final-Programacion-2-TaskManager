@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>TaskManager</title>
+</head>
+<body>
+    <div id="contenedor-padre">
+        <div class="titulo">
+            <div>
+                <header id="header" >
+                    <h1><strong>TaskManager</strong></h1>
+                </header>
+            </div>
+            <div class="frase">
+                <p><b>"La organización de hoy, es el éxito de mañana."</b></p> 
+            </div>
+        </div>
+
+        <div class="contenedor">
+            <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+                <div>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required placeholder="Ingrese e-mail">
+                </div>
+                <div>
+                    <label for="contraseña">Contraseña:</label><br>
+                    <input type="password" id="contraseña" name="contraseña" required placeholder="********">
+                </div>
+
+                <p id="errorMessage"></p>
+                
+                <button type="submit">Iniciar Sesión</button><br>
+                <a href="{{ url_for('restablecer_contraseña') }}" class="Olvidaste-contraseña">¿Olvidaste tu contraseña?</a><br>
+                <div class="volver"><p><a href="{{ url_for('registro') }}"  style="color: white;">Crear cuenta nueva</a></p></div>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

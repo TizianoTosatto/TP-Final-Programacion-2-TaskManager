@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/comentario.css') }}">
+    
+   
+</head>
+<body>
+    <div id="contenedor-padre">
+        <div class="titulo">
+            <div>
+                <header id="header" >
+                    <h1><strong>TaskManager</strong></h1>
+                    
+                </header>
+            </div>
+            <div class="frase">
+                <p><b>"¡Tu opinión es importante para nosotros! </b></p> 
+                <p><b>Comparte tus pensamientos y ayúdanos a mejorar."</b></p>
+            </div>
+            <div class="images">
+                <img src="{{ url_for('static', filename='imagenes/fondo13.jpeg') }}" alt="Imagen de fondo 1">
+    
+            </div>
+        </div>
+
+        <div class="contenedor">
+            <form id="ComentarioForm" action="{{ url_for('comentar') }}" method="POST">
+                <textarea class="comentario-texto" id="comentario" name="descripcion" rows="20" placeholder="Escribe tu comentario aquí..."></textarea>
+                <div class="error-text" id="comentarioError"></div>
+                <button type="submit">Enviar</button>
+                <div class="volver"><p><a href="{{ url_for('TaskManager') }}"  style="color: white;">Volver</a></p></div>
+            </form>
+        </div>
+    </div>
+    <script>
+            document.getElementById('ComentarioForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar el envío inmediato del formulario
+
+            // Obtener los valores de los campos
+            const comentario = document.getElementById('comentario').value;
+            const comentarioError = document.getElementById('comentarioError');
+            comentarioError.textContent = ''; // Limpiar mensajes anteriores
+
+            if (comentario.length === 0) {
+            comentarioError.textContent = 'El mensaje debe tener al menos 10 caracteres.';
+            return;
+            }
+            // Si todo es válido, puedes enviar el formulario
+            alert('GRACIAS POR TU COMENTARIO'); // Placeholder para el envío
+            this.submit(); // Enviar el formulario si todo es válido
+        });
+    </script>
+</body>
+</html>
